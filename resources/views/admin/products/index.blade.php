@@ -23,13 +23,14 @@
             <tbody>
                 @foreach ($products as $item)
                 <tr>
-                  <th scope="row">1</th>
+                  <!-- <th scope="row">1</th> -->
+                  <td>{{$item->id}}</td>
                   <td>{{$item->name}}</td>
                   <td>{{$item->price}}</td>
                   <td>{{$item->category}}</td>
                   <td>
-                      <a href="#">Edit</a>
-                      <a href="#">Delete</a>
+                      <a href="{{ route('admin.product.edit',$item->id)}}">Edit</a>
+                      <a href="{{ route('admin.product.destroy',$item->id)}}">Delete</a>
                   </td>
                 </tr>
                 @endforeach

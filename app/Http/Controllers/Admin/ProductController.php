@@ -80,11 +80,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        $input = $request->all();
 
-        $product = Product::update($input);
+        // $input = $request->all();
+
+        // $product = Product::update($input);
+
+        $input = $request->all();
+        $product = Product::findorfail($id);
+        // dd($input);
+        $updateproduct = $product->update($input);
 
         $product->save();
 
@@ -103,6 +109,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect(route('admin.products.index'))->with([ 'message' => 'record deleted successfully' ]);
+        return redirect(route('admin.products.index'))->with([ 'message', 'record deleted successfully' ]);
     }
 }

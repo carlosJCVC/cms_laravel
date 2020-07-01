@@ -31,4 +31,13 @@ Route::prefix('admin')->group(function () {
     Route::get('products', 'Admin\ProductController@index')->name('admin.products.index');
     Route::get('products/create', 'Admin\ProductController@create');
     Route::get('products/store', 'Admin\ProductController@store')->name('admin.products.store');
+    
+    // edit products
+    Route::get('products/{id}/edit', 'Admin\ProductController@edit')->name('admin.product.edit');
+    Route::put('products/{id}/update', 'Admin\ProductController@update')->name('admin.product.update');
+
+    // destroy products
+    Route::get('products/{id}/destroy','Admin\ProductController@destroy')->name('admin.product.destroy');
 });
+
+// Route::resource('products','Admin\ProductController');
