@@ -16,11 +16,13 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Product 1',
                 'price' => 15.4,
+                'color' => 'Rojo',
                 'category' => 'Calzados',
             ],
             [
                 'name' => 'Product 2',
                 'price' => 15.4,
+                'color' => 'Negro',
                 'category' => 'Calzados',
             ]
         ];

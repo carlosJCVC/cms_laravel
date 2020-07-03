@@ -23,3 +23,11 @@ Route::get('/user', function () {
     $user  = User::find(1);
     return response()->json($user, 200);
 });
+
+Route::group(['prefix' => 'products'], function () {
+    Route::get('/', 'Api\ProductController@index');
+    Route::post('/', 'Api\ProductController@store');
+    Route::put('/', 'Api\ProductController@update');
+    Route::patch('/', 'Api\ProductController@update');
+    Route::delete('/', 'Api\ProductController@destroy');
+});

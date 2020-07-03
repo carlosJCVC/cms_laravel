@@ -23,10 +23,30 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required',
             'price' => 'required',
-            'category' => 'required',
+            'color' => 'required',
+        ];
+
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return $rules;
+            }
+            case 'PUT':
+            case 'PATCH': {
+                return $rules;
+            }
+            default:
+                break;
+        }
+
+        return [
+            //
         ];
     }
 }
