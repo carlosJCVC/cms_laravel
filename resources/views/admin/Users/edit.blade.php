@@ -14,73 +14,92 @@
         <div class="card-header">
           <div class="row">
             <div class="col-md-6">
-              <a href="{{route('admin.products.index')}}">Volver a Listado</a>
+              <a href="{{route('admin.users.index')}}">Volver a Listado</a>
             </div>
-            <div class="col-md-6">Productos</div>
+            <div class="col-md-6">Usuarios</div>
           </div>
         </div>
         <div class="card-body">
-         <form class="needs-validation" action="{{ route('admin.products.store')}}" novalidate>
+          <form class="needs-validation" action="{{ route('admin.users.update',$user->id)}}" method="POST" novalidate>
+
+            @csrf 
+          @method("put")
                 <div class="form-row">
+                  
                   <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Name</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="name" required>
+                    <label for="validationCustom01">ci</label>
+                    <input type="text" class="form-control" id="validationCustom01" name="ci" value="{{$user->ci}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
+
+                    <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">nombres</label>
+                    <input type="text" class="form-control" id="validationCustom02" name="first_name" value="{{$user->firts_name}}"  required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+
+                    <div class="col-md-4 mb-3">
+                    <label for="validationCustom03">apellidos</label>
+                    <input type="text" class="form-control" id="validationCustom03" name="last_name" value="{{$user->last_name}}"  required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom04">correo</label>
+                    <input type="email" class="form-control" id="validationCustom04" name="email" value="{{$user->email}}"  required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom05">telefono</label>
+                    <input type="number" class="form-control" id="validationCustom05" name="phone" value="{{$user->phone}}"  required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+
                    <div class="col-md-4 mb-3">
-                    <label for="validationCustom02">codigo</label>
-                    <input type="text" class="form-control" id="validationCustom02" name="codigo" required>
+                    <label for="validationCustom06">Estado</label>
+                    <input type="text" class="form-control" id="validationCustom06" name="status" value="{{$user->status}}"  required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom03">Price compra</label>
-                    <input type="text" class="form-control" id="validationCustom03" name="price_compra" required>
+                  
+                    <div class="col-md-4 mb-3">
+                    <label for="validationCustom07">Password</label>
+                    <input type="text" class="form-control" id="validationCustom07" name="password" value="{{$user->password}}"  required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
+                 
 
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom04">Price Venta</label>
-                    <input type="text" class="form-control" id="validationCustom04" name="price_venta" required>
-                    <div class="valid-feedback">
-                      Looks good!
-                    </div>
-                  </div>
-
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom05">status</label>
-                    <input type="text" class="form-control" id="validationCustom05" name="status" required>
-                    <div class="valid-feedback">
-                      Looks good!
-                    </div>
-                  </div>
+                
     
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom06">Stock</label>
-                    <input type="text" class="form-control" id="validationCustom06" name="stock" required>
-                    <div class="valid-feedback">
-                      Looks good!
-                    </div>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom07">Image</label>
-                    <input type="text" class="form-control" id="validationCustom07" name="image" required>
-                    <div class="valid-feedback">
-                      Looks good!
-                    </div>
-                  </div>
+                 
+                 
                 </div>
                 <div class="text-center">
                     <button class="btn btn-outline-primary" type="submit">Submit form</button>
                 </div>
             </form>
+
         </div>
       </div>
     </div>
 </body>
 </html>
+
+
+
+

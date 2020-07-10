@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Colors;
 use DB;
-use App\Http\Requests\ProductRequest;
-
-class ProductController extends Controller
+use App\Http\Requests\ColorRequest;
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->get();
+        //
+        $color = DB::table('colors')->get();
 
-        return view('admin.products.index')->with([ 'products' => $products ]);
+        return View('admin.colors.index', [ 'colors' => $color ]);
     }
 
     /**
@@ -29,7 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        //
+        return view('admin.colors.create');
     }
 
     /**
@@ -38,13 +39,14 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(ColorRequest $request)
     {
-        $input = $request->all();
+        //
+         $input = $request->all();
 
-        Product::create($input);
+        Colors::create($input);
 
-        return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
+        return redirect(route('admin.colors.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
@@ -55,9 +57,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-
-        return view('admin.products.index', [ 'product' => $product ]);
+        //
     }
 
     /**
@@ -68,9 +68,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        //
+        $color = Colors::find($id);
 
-        return view('admin.products.edit', [ 'product' => $product ]);
+        return view('admin.colors.edit', [ 'color' => $color ]);
     }
 
     /**
@@ -80,16 +81,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ColorRequest $request, $id)
     {
+        //
          $input = $request->all();
-        $product = Product::findorfail($id);
+        $color = colors::findorfail($id);
         // dd($input);
-        $updateproduct = $product->update($input);
+        $updatecolor = $color->update($input);
 
-        $product->save();
+        $color->save();
 
-        return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
+        return redirect(route('admin.colors.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
@@ -100,10 +102,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-         $product = Product::find($id);
+        //
+         $color = colors::find($id);
 
-        $product->delete();
+        $color->delete();
 
-        return redirect(route('admin.products.index'))->with([ 'message', 'record deleted successfully' ]);
+        return redirect(route('admin.colors.index'))->with([ 'message', 'record deleted successfully' ]);
     }
 }

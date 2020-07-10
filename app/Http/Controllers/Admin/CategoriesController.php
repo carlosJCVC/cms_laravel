@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Category;
 use DB;
-use App\Http\Requests\ProductRequest;
 
-class ProductController extends Controller
+use App\Http\Requests\CategoriesRequest;
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->get();
+        //
+        $categories = DB::table('categories')->get();
 
-        return view('admin.products.index')->with([ 'products' => $products ]);
+        return View('admin.categories.index', [ 'categories' => $categories ]);
     }
 
     /**
@@ -29,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -38,13 +39,14 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(CategoriesRequest $request)
     {
-        $input = $request->all();
+        //
+         $input = $request->all();
 
-        Product::create($input);
+        Category::create($input);
 
-        return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
+        return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
@@ -55,9 +57,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-
-        return view('admin.products.index', [ 'product' => $product ]);
+        //
     }
 
     /**
@@ -68,9 +68,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $category = Category::find($id);
 
-        return view('admin.products.edit', [ 'product' => $product ]);
+        return view('admin.categories.edit', [ 'category' => $category ]);
     }
 
     /**
@@ -80,16 +80,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(CategoriesRequest $request, $id)
     {
+        //
+
          $input = $request->all();
-        $product = Product::findorfail($id);
+        $category = Category::findorfail($id);
         // dd($input);
-        $updateproduct = $product->update($input);
+        $updatecategory = $category->update($input);
 
-        $product->save();
+        $category->save();
 
-        return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
+        return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
@@ -100,10 +102,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-         $product = Product::find($id);
+        
+        $category = Category::find($id);
 
-        $product->delete();
+        $category->delete();
 
-        return redirect(route('admin.products.index'))->with([ 'message', 'record deleted successfully' ]);
+        return redirect(route('admin.categories.index'))->with([ 'message', 'record deleted successfully' ]);
     }
 }

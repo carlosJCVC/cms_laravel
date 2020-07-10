@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use DB;
+
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -14,11 +18,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->get();
+
+        // return "hola";
+        // $users = User::with('roles')->get();
 
         $users = DB::table('users')->get();
 
-        return Vien('admin.users.index', [ 'users' => $users ]);
+        return View('admin.Users.index', [ 'users' => $users ]);
         return response()->json([ 'users' => $users ], 200);
     }
 
@@ -30,6 +36,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('admin.Users.create');
     }
 
     /**
@@ -38,9 +45,16 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        User::create($request->all());
+        
+       $password=bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
+        $request->merge(['password' => $password]);
+        $datas = $request->all();
+        $user=User::create($datas);
+       
+       
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -63,6 +77,10 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+
+        $user = User::find($id);
+
+        return view('admin.Users.edit', [ 'user' => $user ]);
     }
 
     /**
@@ -72,9 +90,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request,$id)
     {
-        
+  
+     if($request->password!=null){
+            // $user->password = $request->password;
+            $password=bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
+            $request->merge(['password' => $password]); 
+        }
+        $input = $request->all();
+
+        $user = User::findorfail($id);
+        // preguntamos si el password biene vacio
+        // $user->removeRole($user->roles->implode('name', ' ,'));
+        $updateuser = $user->update($input);
+        // $user->save();
+
+        return redirect(route('admin.Users.index'));   
     }
 
     /**
@@ -83,8 +115,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
+         $user = User::find($id);
+
+        $user->delete();
+
+        return redirect(route('admin.users.index'))->with([ 'message', 'record deleted successfully' ]);
     }
 }

@@ -10,17 +10,8 @@
 </head>
 <body>
     <div class="container">
-      <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-md-6">
-              <a href="{{route('admin.products.index')}}">Volver a Listado</a>
-            </div>
-            <div class="col-md-6">Productos</div>
-          </div>
-        </div>
-        <div class="card-body">
-         <form class="needs-validation" action="{{ route('admin.products.store')}}" novalidate>
+        <div class="mt-5">
+            <form class="needs-validation" action="{{ route('admin.products.store')}}" novalidate>
                 <div class="form-row">
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Name</label>
@@ -79,8 +70,10 @@
                     <button class="btn btn-outline-primary" type="submit">Submit form</button>
                 </div>
             </form>
+
+            {{$errors}}
         </div>
-      </div>
     </div>
+
 </body>
 </html>

@@ -20,25 +20,27 @@
           </div>
         </div>
         <div class="card-body">
-         <form class="needs-validation" action="{{ route('admin.products.store')}}" novalidate>
+         <form class="needs-validation" action="{{ route('admin.product.update',$product->id)}}" method="post"  novalidate>
+          @csrf 
+          @method("put")
                 <div class="form-row">
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Name</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="name" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="name" required value="{{$product->name}}">
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
                    <div class="col-md-4 mb-3">
                     <label for="validationCustom02">codigo</label>
-                    <input type="text" class="form-control" id="validationCustom02" name="codigo" required>
+                    <input type="text" class="form-control" id="validationCustom02" name="codigo" value="{{$product->codigo}}" required >
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom03">Price compra</label>
-                    <input type="text" class="form-control" id="validationCustom03" name="price_compra" required>
+                    <input type="text" class="form-control" id="validationCustom03" name="price_compra" value="{{$product->price_compra}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -46,7 +48,7 @@
 
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom04">Price Venta</label>
-                    <input type="text" class="form-control" id="validationCustom04" name="price_venta" required>
+                    <input type="text" class="form-control" id="validationCustom04" name="price_venta" value="{{$product->price_venta}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -54,7 +56,7 @@
 
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom05">status</label>
-                    <input type="text" class="form-control" id="validationCustom05" name="status" required>
+                    <input type="text" class="form-control" id="validationCustom05" name="status" value="{{$product->status}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -62,21 +64,21 @@
     
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom06">Stock</label>
-                    <input type="text" class="form-control" id="validationCustom06" name="stock" required>
+                    <input type="text" class="form-control" id="validationCustom06" name="stock"  value="{{$product->stock}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom07">Image</label>
-                    <input type="text" class="form-control" id="validationCustom07" name="image" required>
+                    <input type="text" class="form-control" id="validationCustom07" name="image"  value="{{$product->image}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
                   </div>
                 </div>
                 <div class="text-center">
-                    <button class="btn btn-outline-primary" type="submit">Submit form</button>
+                    <button class="btn btn-outline-primary" type="submit">Actualizar</button>
                 </div>
             </form>
         </div>

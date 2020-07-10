@@ -15,14 +15,20 @@ class ProductSeeder extends Seeder
         $items = [
             [
                 'name' => 'Product 1',
-                'price' => 15.4,
-                'category' => 'Calzados',
+                'codigo' => 1111,
+                'price_compra' => 15.4,
+                'price_venta' => 19.4,
+                'stock' => 'Calzados',
+                'image' => 'Calzados',
             ],
-            [
+             [
                 'name' => 'Product 2',
-                'price' => 15.4,
-                'category' => 'Calzados',
-            ]
+                'codigo' => 22222,
+                'price_compra' => 15.4,
+                'price_venta' => 20.4,
+                'stock' => 'Calzados',
+                'image' => 'Calzados',
+            ],
         ];
 
         foreach ($items as $key => $value) {
