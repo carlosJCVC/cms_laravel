@@ -22,6 +22,18 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('phones', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
+            $table->string('number_phone');
+            $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+        });
     }
 
     /**

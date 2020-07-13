@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
+use App\Phone;
 
 class UserController extends Controller
 {
@@ -14,7 +16,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->get();
+        $user = User::find(1);
+        $user->delete();
+        // $users = User::with('products')->get();
+
+        //$user = DB::tables('users')->where('id', 1)->first();
+        
+
+        dd($user->products()->where('color', 'Rojo')->get());
+
+        //SELECT p.* FROM products p JOIN users u ON u.id=p.user_id WHERE p.color='Rojo'
 
         $users = DB::table('users')->get();
 

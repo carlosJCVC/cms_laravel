@@ -22,4 +22,5 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/users/{user}', 'UserController@update');
+Route::get('users', 'Admin\UserController@index');
 
