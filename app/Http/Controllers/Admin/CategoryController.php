@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\Category;
 use DB;
 
-class UserController extends Controller
+
+class CategoryController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //$users = User::with('roles')->get();
+        //$users = User::with('roles')->get();d
 
-        $users = DB::table('users')->get();
+        $categories = DB::table('categories')->get();
 
-        return view('admin.users.index', [ 'users' => $users ]);
+        return view('admin.categories.index', [ 'categories' => $categories ]);
        
         //return response()->json([ 'users' => $users ], 200);
     }
@@ -33,7 +34,7 @@ class UserController extends Controller
     public function create()
     {
         
-        return view('admin.users.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -44,8 +45,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create($request->all());
-        return redirect(route('admin.users.index'))->with(['success' => 'record created successfully']);
+        Category::create($request->all());
+        return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
@@ -58,7 +59,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return view('admin.users.index', [ 'user' => $user ]);
+        return view('admin.categories.index', [ 'category' => $category ]);
     }
 
     /**
@@ -69,8 +70,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('admin.users.edit', [ 'user' => $user ]);
+        $category = Category::find($id);
+        return view('admin.categories.edit', [ 'category' => $category ]);
     }
 
     /**
@@ -83,9 +84,9 @@ class UserController extends Controller
     public function update(Request $request,$id)
     {
         $input = $request->all();
-        $user = User::find($id)->update($input);
+        $category = Category::find($id)->update($input);
 
-        return redirect(route('admin.users.index'))->with(['success' => 'record created successfully']);
+        return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
@@ -96,10 +97,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $category = Category::find($id);
 
-        $user->delete();
+        $category->delete();
 
-        return redirect(route('admin.users.index'))->with([ 'message' => 'record deleted successfully' ]);
+        return redirect(route('admin.categories.index'))->with([ 'message' => 'record deleted successfully' ]);
     }
 }

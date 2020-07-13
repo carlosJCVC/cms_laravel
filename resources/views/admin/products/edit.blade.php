@@ -11,19 +11,29 @@
 <body>
     <div class="container">
         <div class="mt-5">
-            <form class="needs-validation" action="{{ route('admin.products.store')}}" enctype="multipart/form-data" method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('admin.products.update', ['id' => $product->id]) }}" enctype="multipart/form-data"  method="POST" novalidate>
             {{csrf_field()}}
-            
+            <input type="hidden" name="_method" value="PUT">
             <div class="col-md-12 mb-3">
 
-                      <input type="file" name="image">
+                @if($product->image)
+                    <img src="{{ asset( 'images/' . $product->image)}}" width=150>  
+                @else
+                    <p>Sin foto</p> 
+                @endif
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <input type="file" name="image" value="{{$product->image}}">
             </div>    
+
+
               
               <div class="form-row">
   
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Name</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="name" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="name" value="{{$product->name}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -31,7 +41,7 @@
 
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Codigo</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="code" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="code" value="{{$product->code}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -39,7 +49,7 @@
 
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Precio de compra</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="price_compra" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="price_compra" value="{{$product->price_compra}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -47,7 +57,7 @@
                   
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom02">Precio de venta</label>
-                    <input type="text" class="form-control" id="validationCustom02" name="price_venta" required>
+                    <input type="text" class="form-control" id="validationCustom02" name="price_venta" value="{{$product->price_venta}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -55,7 +65,7 @@
     
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">status</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="status" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="status" value="{{$product->status}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>
@@ -63,7 +73,7 @@
 
                   <div class="col-md-4 mb-3">
                     <label for="validationCustom01">Stock</label>
-                    <input type="text" class="form-control" id="validationCustom01" name="stock" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="stock" value="{{$product->stock}}" required>
                     <div class="valid-feedback">
                       Looks good!
                     </div>

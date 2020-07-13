@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\User;
+use App\Models\Category;
 use DB;
 use App\Http\Requests\ProductRequest;
 
@@ -17,7 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->get();
+
+        $products = DB::table('products')->get();               
+        
 
         return view('admin.products.index')->with([ 'products' => $products ]);
     }
@@ -29,7 +33,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $categories = Category::all();
+        $users = User::all();   
+        return view('admin.products.create', [ 'categories'=>$categories, 'users'=>$users ]);
     }
 
     /**
@@ -38,10 +44,15 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
-
+        
+        if($archivo=$request->file('image')){ 
+            $nombre=$archivo->getClientOriginalName();
+            $archivo->move('images', $nombre);
+            $input['image']=$nombre;
+        }
         Product::create($input);
 
         return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
@@ -68,9 +79,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
+        $users = User::all();
         $product = Product::find($id);
-
-        return view('admin.products.edit', [ 'product' => $product ]);
+        return view('admin.products.edit', [ 'product' => $product, 'categories'=>$categories, 'users'=>$users ]);
     }
 
     /**
@@ -82,11 +94,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+
         $input = $request->all();
+        
+        if($archivo=$request->file('image')){ 
+            $nombre=$archivo->getClientOriginalName();
+            $archivo->move('images', $nombre);
+            $input['image']=$nombre;
+        }
 
-        $product = Product::update($input);
-
-        $product->save();
+        $product = Product::find($id)->update($input);
 
         return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
     }

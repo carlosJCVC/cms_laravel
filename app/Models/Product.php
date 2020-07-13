@@ -12,6 +12,16 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        "name", "price", "category"
+        "code","name", "price_compra","price_venta","status","stock", "image", "category_id","user_id"
     ];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
