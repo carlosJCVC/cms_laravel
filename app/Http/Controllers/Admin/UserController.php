@@ -6,91 +6,56 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DB;
-
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-
-        // return "hola";
         // $users = User::with('roles')->get();
-
-        $users = DB::table('users')->get();
-
-        return View('admin.Users.index', [ 'users' => $users ]);
-        return response()->json([ 'users' => $users ], 200);
+        // $users = DB::table('users')->get();
+        // return View('admin.Users.index', [ 'users' => $users ]);
+        // return response()->json([ 'users' => $users ], 200);
+         return User::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('admin.Users.create');
-    }
+    // public function create()
+    // {
+    //     //
+    //     return view('admin.Users.create');
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(UserRequest $request)
     {
         
-       $password=bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
+        $password=bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
         $request->merge(['password' => $password]);
         $datas = $request->all();
         $user=User::create($datas);
        
-       
-        return redirect(route('admin.users.index'));
+        return response()->json([
+            'res' => true,
+            'message'=>'Registro creado correctamente'
+        ],201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return $user;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
 
-        $user = User::find($id);
+    // public function edit($id)
+    // {
+    //     $user = User::find($id);
+    //     return view('admin.Users.edit', [ 'user' => $user ]);
+    // }
 
-        return view('admin.Users.edit', [ 'user' => $user ]);
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UserRequest $request,$id)
+    public function update(UserUpdateRequest $request,$id)
     {
   
      if($request->password!=null){
@@ -106,22 +71,25 @@ class UserController extends Controller
         $updateuser = $user->update($input);
         // $user->save();
 
-        return redirect(route('admin.Users.index'));   
+        // return redirect()->route('admin.users.index')->with('status', 'Profile updated!');  
+        
+        return response()->json([
+            'res' => true,
+            'message'=>'Registro actualizado correctamente'
+        ],200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
          $user = User::find($id);
 
         $user->delete();
-
-        return redirect(route('admin.users.index'))->with([ 'message', 'record deleted successfully' ]);
+        return response()->json([
+            'res' => true,
+            'message'=>'Registro eliminado correctamente'
+        ],200);
+        // return redirect(route('admin.users.index'))->with([ 'message', 'record deleted successfully' ]);
     }
+
 }

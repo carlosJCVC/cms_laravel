@@ -10,103 +10,67 @@ use DB;
 use App\Http\Requests\CategoriesRequest;
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function index()
     {
-        //
-        $categories = DB::table('categories')->get();
-
-        return View('admin.categories.index', [ 'categories' => $categories ]);
+        // $categories = DB::table('categories')->get();
+        // return View('admin.categories.index', [ 'categories' => $categories ]);
+        return Category::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.categories.create');
-    }
+ 
+    // public function create()
+    // {
+    //     return view('admin.categories.create');
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CategoriesRequest $request)
     {
         //
-         $input = $request->all();
-
+        $input = $request->all();
         Category::create($input);
-
-        return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
+        // return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
+        return response()->json([
+            'res' => true,
+            'message'=>'Categoria creado correctamente'
+        ],200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+ 
+    public function show(Categories $category)
     {
-        //
+        return  $category;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $category = Category::find($id);
+    // public function edit($id)
+    // {
+    //     $category = Category::find($id);
+    //     return view('admin.categories.edit', [ 'category' => $category ]);
+    // }
 
-        return view('admin.categories.edit', [ 'category' => $category ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function update(CategoriesRequest $request, $id)
     {
-        //
-
-         $input = $request->all();
+        $input = $request->all();
         $category = Category::findorfail($id);
-        // dd($input);
         $updatecategory = $category->update($input);
-
         $category->save();
-
-        return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
+        return response()->json([
+            'res' => true,
+            'message'=>'Categoria actualizado correctamente'
+        ],201);
+        // return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        
         $category = Category::find($id);
-
         $category->delete();
-
-        return redirect(route('admin.categories.index'))->with([ 'message', 'record deleted successfully' ]);
+        return response()->json([
+            'res' => true,
+            'message'=>'Categoria Eliminado correctamente'
+        ],200);
+        // return redirect(route('admin.categories.index'))->with([ 'message', 'record deleted successfully' ]);
     }
 }

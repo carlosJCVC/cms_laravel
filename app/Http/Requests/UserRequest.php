@@ -24,15 +24,21 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'ci' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'password' => 'required',
-            'status' => 'required',
-            
 
+            'name' => 'required', 
+            'email' => 'required|email', 
+            'password' => 'required', 
+            'c_password' => 'required|same:password',
         ];
+            
+        // return [
+        //     'ci' => 'required',
+        //     'first_name' => 'required',
+        //     'last_name' => 'required',
+        //     'email' => 'required',
+        //     'phone' => 'required',
+        //     'password' => 'required',
+        //     'status' => 'required',
+        // ];
     }
 }
