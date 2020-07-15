@@ -29,22 +29,25 @@ public $successStatus = 200;
      * @return \Illuminate\Http\Response 
      */ 
     public function register(Request $request) 
-    { 
+    {
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
             'email' => 'required|email', 
             'password' => 'required', 
             // 'c_password' => 'required|same:password', 
         ]);
-if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+
+        if ($validator->fails()) { 
+            return response()->json(['error'=>$validator->errors()], 400);            
         }
-$input = $request->all(); 
+        
+        $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
-        $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+        $success['token'] =  $user->createToken('MyApp')->accessToken; 
         $success['name'] =  $user->name;
-return response()->json(['success'=>$success], $this-> successStatus); 
+
+        return response()->json([ 'success' => $success ], $this->successStatus); 
     }
 /** 
      * details api 
@@ -54,7 +57,8 @@ return response()->json(['success'=>$success], $this-> successStatus);
     public function details() 
     { 
         $user = Auth::user(); 
-        return response()->json(['success' => $user], $this-> successStatus); 
+
+        return response()->json(['success' => $user], $this->successStatus); 
     } 
 }
 
