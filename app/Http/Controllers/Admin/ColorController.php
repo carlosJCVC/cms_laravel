@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\Color;
 use DB;
 
-class UserController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$users = User::with('roles')->get();
+        $colors = DB::table('colors')->get();
 
-        $users = DB::table('users')->get();
-
-        return view('admin.users.index', [ 'users' => $users ]);
-       
-        //return response()->json([ 'users' => $users ], 200);
+        return view('admin.colors.index', [ 'colors' => $colors ]);
     }
 
     /**
@@ -32,8 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.users.create');
+        return view('admin.colors.create');
     }
 
     /**
@@ -44,62 +39,62 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create($request->all());
-        return redirect(route('admin.users.index'))->with(['success' => 'record created successfully']);
+        Color::create($request->all());
+        return redirect(route('admin.colors.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $color = Color::find($id);
 
-        return view('admin.users.index', [ 'user' => $user ]);
+        return view('admin.colors.index', [ 'color' => $color ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('admin.users.edit', [ 'user' => $user ]);
+        $color = Color::find($id);
+        return view('admin.colors.edit', [ 'color' => $color ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $input = $request->all();
-        $user = User::find($id)->update($input);
+        $color = Color::find($id)->update($input);
 
-        return redirect(route('admin.users.index'))->with(['success' => 'record created successfully']);
+        return redirect(route('admin.colors.index'))->with(['success' => 'record created successfully']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Color  $color
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $color = Color::find($id);
 
-        $user->delete();
+        $color->delete();
 
-        return redirect(route('admin.users.index'))->with([ 'message' => 'record deleted successfully' ]);
+        return redirect(route('admin.colors.index'))->with([ 'message' => 'record deleted successfully' ]);
     }
 }

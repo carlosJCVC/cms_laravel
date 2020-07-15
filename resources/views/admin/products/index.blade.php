@@ -10,13 +10,28 @@
 </head>
 <body>
     <div class="container">
+    <h2>
+    <p class="font-weight-bold">Lista de productos</p>
+    
+    </h2>
+    
+    <input type ='button' class="btn btn-outline-primary" value='Create Product' onclick="location.href = '{{ route('admin.products.create') }}'"/>
+  <div>
+  --
+  </div>
         <table class="table table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Category</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Price Compra</th>
+                <th scope="col">Price Venta</th>
+                <th scope="col">Status</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Image</th>
+                <th scope="col">Categoria_id</th>
+                <th scope="col">User_id</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -26,11 +41,28 @@
                   <!-- <th scope="row">1</th> -->
                   <td>{{$item->id}}</td>
                   <td>{{$item->name}}</td>
-                  <td>{{$item->price}}</td>
-                  <td>{{$item->category}}</td>
+                  <td>{{$item->code}}</td>
+                  <td>{{$item->price_compra}}</td>
+                  <td>{{$item->price_venta}}</td>
+                  <td>{{$item->status}}</td>
+                  <td>{{$item->stock}}</td>
+                 
+                  @if($item->image)
                   <td>
-                      <a href="{{ route('admin.product.edit',$item->id)}}">Edit</a>
-                      <a href="{{ route('admin.product.destroy',$item->id)}}">Delete</a>
+                  <img src="{{ asset( 'images/' . $item->image)}}" width=150>
+                  </td>
+                  @else
+                  <td>Sin foto</td>
+                  @endif
+                  
+                  <td>{{$item->category_id}}</td>
+                  <td>{{$item->user_id}} </td>
+                  <td>
+                      <a href="{{ route('admin.products.edit', ['id' => $item->id]) }}">Edit</a>
+                  
+                      <a href="{{ route('admin.products.destroy', ['id' => $item->id]) }}">Delete</a>
+                      
+                     
                   </td>
                 </tr>
                 @endforeach

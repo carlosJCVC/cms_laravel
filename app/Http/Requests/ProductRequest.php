@@ -23,10 +23,36 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [
+            'name' => 'required|between:3,32',
+            'code' => 'required|between:3,32',
+            'price_compra' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'price_venta' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'status' => 'required|boolean',
+            // 'status' => 'required|in:ACTIVE,INACTIVE',
+            'stock' => 'required|integer',
+            'image' => 'image|dimensions:min_width=100,min_height=200',
+            'category_id' => 'integer'
+        ];
+
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return $rules;
+            }
+            case 'PUT':
+            case 'PATCH': {
+                return $rules;
+            }
+            default:
+                break;
+        }
+
         return [
-            'name' => 'required',
-            'price' => 'required',
-            'category' => 'required',
+        
         ];
     }
 }
