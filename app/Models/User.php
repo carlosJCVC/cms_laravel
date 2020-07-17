@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Product;
+use App\Models\Product;
 
 class User extends Authenticatable 
 {
@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token','created_at','updated_at'
     ];
 
-    public function product(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 }

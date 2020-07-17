@@ -13,17 +13,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::with('product')->get();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return User::with('products')->get();
     }
 
     /**
@@ -39,25 +29,16 @@ class UsersController extends Controller
 
     /**
      * Display the specified resource.
+     * Your can use model binding in your variable example
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        //$user = null; 
         $user = User::find($id);
         return $user;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -67,7 +48,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user= User::find($id);
         $user->update($request->all());

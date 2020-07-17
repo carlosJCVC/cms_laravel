@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -14,17 +14,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return Product::with('user','user','color','category')->get();
-    }
+        $products = Product::with('user' ,'colors','category')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([ 'products' => $products ], 200);
     }
 
     /**

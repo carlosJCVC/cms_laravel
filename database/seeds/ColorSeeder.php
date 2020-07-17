@@ -1,6 +1,7 @@
 <?php
-use App\Color;
+
 use Illuminate\Database\Seeder;
+use App\Models\Color;
 
 class ColorSeeder extends Seeder
 {
@@ -23,8 +24,9 @@ class ColorSeeder extends Seeder
             'product_id'=>'2'
            ],
        ];
+
        foreach ($items as $key => $value) {
-        Color::create($value);
+            Color::create($value);
         }
     }
 }

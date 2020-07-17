@@ -1,15 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Product;
+use App\Models\Product;
+
 class Category extends Model
 {
-    //
     protected $filliable=['code','name'];
 
-    public function product(){
+    public function products()
+    {
         return $this->hasMany(Product::class);
     }
 }
