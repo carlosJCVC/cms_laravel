@@ -56,6 +56,7 @@ public $successStatus = 200;
      */ 
     public function details() 
     { 
+       
         $user = Auth::user(); 
 
         return response()->json(['success' => $user], $this->successStatus); 

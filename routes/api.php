@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\User;
 use App\Http\Resources\User as UserController;
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +14,9 @@ use App\Http\Resources\User as UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login', 'API\UserController@login');
+Route::post('login', 'API\UserController@login')->name('login');
 Route::post('register', 'API\UserController@register');
+Route::get('logout', 'API\UserController@logout');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
