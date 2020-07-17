@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use DB;
-use App\Http\Requests\ProductRequest;
 
-class ProductController extends Controller
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->get();
-
-        return view('admin.products.index')->with([ 'products' => $products ]);
+        return Product::with('user','user','color','category')->get();
     }
 
     /**
@@ -29,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        //
     }
 
     /**
@@ -38,13 +33,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-
-        Product::create($input);
-
-        return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
+        //
     }
 
     /**
@@ -55,9 +46,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-
-        return view('admin.products.index', [ 'product' => $product ]);
+        //
     }
 
     /**
@@ -68,9 +57,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-
-        return view('admin.products.edit', [ 'product' => $product ]);
+        //
     }
 
     /**
@@ -82,13 +69,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-
-        $product = Product::update($input);
-
-        $product->save();
-
-        return redirect(route('admin.products.index'))->with(['success' => 'record created successfully']);
+        //
     }
 
     /**
@@ -99,10 +80,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-
-        $product->delete();
-
-        return redirect(route('admin.products.index'))->with([ 'message' => 'record deleted successfully' ]);
+        //
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Color;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ColorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->get();
-
-        $users = DB::table('users')->get();
-
-        return Vien('admin.users.index', [ 'users' => $users ]);
-        return response()->json([ 'users' => $users ], 200);
+        return Color::with('product')->get();
     }
 
     /**
@@ -40,7 +35,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create($request->all());
+        //
     }
 
     /**
@@ -72,9 +67,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**
@@ -83,7 +78,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
     }
