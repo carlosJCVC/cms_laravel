@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/admin', function () {
     dd('estoy en rutas admin');
 })->middleware('isAdmin');

@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'status' =>'ACTIVO',
                 'email' => 'pedro@pedro.com',
                 'password' => bcrypt('pedro')
-            ],
+            ],           
             [
                 'first_name' => 'Juan',
                 'last_name' => 'Viamont Perez',

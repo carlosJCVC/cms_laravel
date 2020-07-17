@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -64,15 +64,13 @@
                   </div>
     
                   <div class="col-md-4 mb-3">
-<<<<<<< HEAD
                     <label for="validationCustom02">Category</label>
-                    <input type="text" class="form-control" id="validationCustom02" name="category" value="{{old('category', $product->category ?? '')}}" required>
+                    <input type="text" class="form-control" id="validationCustom02" name="category" value="{{old('category_id', $product->category ?? '')}}" required>
                     <div class="valid-feedback">
                       <!-- Looks good! -->
                     </div>
                   </div>
                 </div>
-=======
                     <label for="validationCustom01">status</label>
                     <input type="text" class="form-control" id="validationCustom01" name="status" value="{{$product->status}}" required>
                     <div class="valid-feedback">
@@ -118,7 +116,6 @@
 
               </div>
 
->>>>>>> dda7d6a69302c91109733892e2df47ec71103534
                 <div class="text-center">
                     <button class="btn btn-outline-primary" type="submit">Submit form</button>
                 </div>
@@ -126,11 +123,9 @@
 
             {{$errors}}
         </div>
-<<<<<<< HEAD
     </div>
-=======
     </div>
 
 </body>
 </html>
->>>>>>> dda7d6a69302c91109733892e2df47ec71103534
+

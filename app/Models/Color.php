@@ -8,6 +8,11 @@ class Color extends Model
 {
     //
     protected $fillable = [
-        "name","price","status","stock"
+        "name","stock","product_id"
     ];
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }

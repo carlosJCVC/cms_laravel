@@ -14,16 +14,14 @@ class ColorSeeder extends Seeder
         $items = [
             [
                 'name' => 'Rojo',
-                'price' => 10.0,
-                'status' =>"ACTIVO",
-                'stock' =>100
+                'stock' =>100,
+                'product_id' =>1
                 
             ],
             [
                 'name' => 'Azul',
-                'price' => 15.0,
-                'status' =>"INACTIVO",
-                'stock' =>120
+                'stock' =>120,
+                'product_id' =>1
             ]
         ];
 
