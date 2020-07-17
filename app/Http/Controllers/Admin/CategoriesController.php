@@ -13,9 +13,8 @@ class CategoriesController extends Controller
   
     public function index()
     {
-        $categories =  Category::with('products');
-
-        return response()->json([ 'categories' => $categories, $success => true ], 200);
+        $categories =  Category::with('products')->get();
+        return response()->json([ 'categories' => $categories ], 200);
     }
 
     public function store(CategoriesRequest $request)

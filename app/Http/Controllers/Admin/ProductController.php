@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use App\Http\Requests\ProductRequest;
 use DB;
 
@@ -17,8 +18,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-        return Product::all();
+        $products =  Product::with('categories')->get();
+        dd($products);
+        // return Product::all();
+        return response()->json(['products' => $products,
+        'res' => true,
+        ], 200);
+        
     }
 
     public function store(ProductRequest $request)
