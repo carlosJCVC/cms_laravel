@@ -32,16 +32,19 @@ Route::delete('users/{id}','UserController@destroy');
 Route::get('products','ProductController@index');
 Route::get('products/{id}','ProductController@index');
 Route::post('products','ProductController@store');
-Route::put('Products/{id}','ProductController@update');
+Route::put('products/{id}','ProductController@update');
+Route::delete('products/{id}','ProductController@destroy');
 
 //Route COLORS
 Route::get('colors','ColorController@index');
 Route::get('colors/{id}','ColorController@show');
 Route::post('colors','ColorController@store');
-Route::put('colrs/{id}','ColorController@update');
+Route::put('colors/{id}','ColorController@update');
+Route::delete('colors/{id}','ColorController@destroy');
 
 //Route Categories
 Route::get('categories','CategoryController@index');
 Route::get('categories/{id}','CategoryController@show');
 Route::post('categories','CategoryController@store');
 Route::put('categories/{id}','CategoryController@update');
+Route::delete('categories/{id}','CategoryController@destroy');
