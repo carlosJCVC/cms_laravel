@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use App\User;
+use App\Models\User;
 
 class IsAdmin
 {
@@ -21,7 +21,6 @@ class IsAdmin
         $user = User::find(1);
 
         if ($user == NULL) {
-            dd('tienes que iniciar sesion primero');
             return redirect('/signin');
         }
 
