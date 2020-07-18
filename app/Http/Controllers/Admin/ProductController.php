@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +14,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return Category::with('product')->get();
-    }
+        $products = Product::with('user' ,'colors','category')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([ 'products' => $products ], 200);
     }
 
     /**
@@ -35,7 +27,8 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newProduct = Product::create($request->all());
+        return response()->json($newProduct,201);
     }
 
     /**
@@ -46,18 +39,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $product = Product::find($id);
+        return response()->json($product,200);
     }
 
     /**
@@ -69,7 +52,9 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return response()->json($product,200);
     }
 
     /**
@@ -80,6 +65,8 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return response()->json('true',200);
     }
 }

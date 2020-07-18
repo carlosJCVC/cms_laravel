@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\User;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,24 +18,30 @@ use App\User;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('/user', function () {
-    $user  = User::find(1);
-    return response()->json($user, 200);
+Route::get('/', function () {
+    return response()->json('bienvenido');
 });
 //Route USERS
-Route::get('users', 'UsersController@index');
-Route::get('users/{id}','UsersController@show');
-Route::post('users','UsersController@store');
-Route::put('users/{id}','UsersController@update');
+Route::get('users', 'UserController@index');
+Route::get('users/{id}','UserController@show');
+Route::post('users','UserController@store');
+Route::put('users/{id}','UserController@update');
+Route::delete('users/{id}','UserController@destroy');
 
 //Route PRODUCTS
-Route::get('products','ProductsController@index');
-
+Route::get('products','ProductController@index');
+Route::get('products/{id}','ProductController@index');
+Route::post('products','ProductController@store');
+Route::put('Products/{id}','ProductController@update');
 
 //Route COLORS
-Route::get('colors','ColorsController@index');
-
+Route::get('colors','ColorController@index');
+Route::get('colors/{id}','ColorController@show');
+Route::post('colors','ColorController@store');
+Route::put('colrs/{id}','ColorController@update');
 
 //Route Categories
-Route::get('categories','CategoriesController@index');
+Route::get('categories','CategoryController@index');
+Route::get('categories/{id}','CategoryController@show');
+Route::post('categories','CategoryController@store');
+Route::put('categories/{id}','CategoryController@update');

@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with('user' ,'colors','category')->get();
-
-        return response()->json([ 'products' => $products ], 200);
+        //return User::with('products')->get();
+        $users = User::with('products')->get();
+        return response()->json(['users'=>$users],200);
     }
 
     /**
@@ -27,29 +26,21 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newUser=User::create($request->all());
+        return response()->json($newUser,201);
     }
 
     /**
      * Display the specified resource.
+     * Your can use model binding in your variable example
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $user = User::find($id);
+        return response()->json($user,200);
     }
 
     /**
@@ -61,7 +52,9 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user= User::find($id);
+        $user->update($request->all());
+        return response()->json($user,200);
     }
 
     /**
@@ -72,6 +65,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::find($id);
+        $user->delete();
+        return response()->json('true',204);
     }
 }

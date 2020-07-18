@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Color;
+use App\Models\Color;
 use Illuminate\Http\Request;
 
-class ColorsController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,17 +14,8 @@ class ColorsController extends Controller
      */
     public function index()
     {
-        return Color::with('product')->get();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $color = Color::with('product')->get();
+        return response()->json(['colors'=>$color],200);
     }
 
     /**
@@ -35,7 +26,8 @@ class ColorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newColor = Color::create($request->all());
+        return response()->json($newColor,201);
     }
 
     /**
@@ -46,18 +38,8 @@ class ColorsController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $color = Color::find($id);
+        return response()->json($color,200);
     }
 
     /**
@@ -69,7 +51,9 @@ class ColorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $color = Color::find($id);
+        $color->update($request->all());
+        return response()->json($color,200);
     }
 
     /**
@@ -80,6 +64,8 @@ class ColorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $color = Color::find($id);
+        $color->delete();
+        return response()->json('true',204);
     }
 }

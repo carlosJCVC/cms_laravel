@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
-use Illuminate\Http\Request;
 
-class UsersController extends Controller
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Prophecy\Call\Call;
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return User::with('products')->get();
+        $categories = Category::with('products')->get();
+        return response()->json(['categories'=>$categories],200);
     }
 
     /**
@@ -24,21 +27,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        return User::create($request->all());
+        $newCategory = Category::create($request->all());
+        return response()->json($newCategory,201);
     }
 
     /**
      * Display the specified resource.
-     * Your can use model binding in your variable example
      *
-     * @param  User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //$user = null; 
-        $user = User::find($id);
-        return $user;
+        $category = Category::find($id);
+        return response()->json($category,200);
     }
 
     /**
@@ -48,11 +50,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $user= User::find($id);
-        $user->update($request->all());
-        return $user;
+        $category = Category::find($id);
+        $category->update($request->all());
+        return response()->json($category,200);
     }
 
     /**
@@ -63,6 +65,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category=Category::find($id);
+        $category->delete();
+        response()->json('true',204);
     }
 }

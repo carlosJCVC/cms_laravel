@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -30,6 +30,15 @@ class UserSeeder extends Seeder
                 'status' =>'INACTIVO',
                 'email' => 'juan@juan.com',
                 'password' => bcrypt('juan')
+            ],
+            [
+                'first_name' => 'Edson',
+                'last_name' => 'rosas',
+                'ci' =>'52322cbba',
+                'namber_phone' =>'70278765',
+                'status' =>'INACTIVO',
+                'email' => 'juan@juaadsn.com',
+                'password' => bcrypt('jaduan')
             ]
         ];
 
