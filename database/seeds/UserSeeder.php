@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
                 'namber_phone' =>'65740670',
                 'status' =>'ACTIVO',
                 'email' => 'pedro@pedro.com',
-                'password' => bcrypt('pedro')
+                'password' =>'pedro',
             ],
             [
                 'first_name' => 'Juan',
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
                 'namber_phone' =>'70778765',
                 'status' =>'INACTIVO',
                 'email' => 'juan@juan.com',
-                'password' => bcrypt('juan')
+                'password' =>'juan'
             ],
             [
                 'first_name' => 'Edson',
@@ -37,8 +37,8 @@ class UserSeeder extends Seeder
                 'ci' =>'52322cbba',
                 'namber_phone' =>'70278765',
                 'status' =>'INACTIVO',
-                'email' => 'juan@juaadsn.com',
-                'password' => bcrypt('jaduan')
+                'email' => 'edson@edson.com',
+                'password' =>'edson'
             ]
         ];
 

@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('client');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -69,4 +74,34 @@ class UserController extends Controller
         $user->delete();
         return response()->json('true',204);
     }
+
+    /*public function login(Request $request){
+        $user = User::whereEmail($request->email)->first();
+        if(!is_null($user) && Hash::check($request->password, $user->password))
+        {
+            $token = $user->createToken('cms_laravel')->accessToken;
+
+            return response()->json([
+                'res'=>true,
+                'token'=>$token,
+                'message'=>'Bienvenido al sistema'
+            ],200);
+        }else{
+            return response()->json([
+                'res'=>false,
+                'message'=>'cuenta o pawssword incorrecto'
+            ],200);
+        }
+    }
+    public function logout(){
+        $user=auth()->user();
+        $user->tokens->each(function($token,$key){
+            $token->delete();
+        });
+        //$user->save();
+        return response()->json([
+            'res'=>true,
+            'message'=>'adios'
+        ],200);
+    }*/
 }

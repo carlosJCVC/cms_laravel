@@ -15,9 +15,9 @@ use App\Models\User;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('user', function (Request $request) {
     return $request->user();
-});
+});*/
 Route::get('/', function () {
     return response()->json('bienvenido');
 });
@@ -27,6 +27,8 @@ Route::get('users/{id}','UserController@show');
 Route::post('users','UserController@store');
 Route::put('users/{id}','UserController@update');
 Route::delete('users/{id}','UserController@destroy');
+
+
 
 //Route PRODUCTS
 Route::get('products','ProductController@index');
