@@ -17,9 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //$users = User::with('roles')->get();d
-
-        $categories = DB::table('categories')->get();
+        
+        $categories =Category::with('products')->get();
 
         return view('admin.categories.index', [ 'categories' => $categories ]);
        
@@ -43,7 +42,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         Category::create($request->all());
         return redirect(route('admin.categories.index'))->with(['success' => 'record created successfully']);
@@ -81,7 +80,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(CategoryRequest $request,$id)
     {
         $input = $request->all();
         $category = Category::find($id)->update($input);

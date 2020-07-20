@@ -18,24 +18,13 @@ use App\User;
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 
-
-
-
-
-
-
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'Api\UserController@details');
 
-    //USERS
-    Route::get('users', 'Api\UserController@index')->name('admin.users.index');
-    Route::get('users/create', 'Api\UserController@create')->name('admin.users.create');
-    Route::get('users/{id}/edit', 'Api\UserController@edit')->name('admin.users.edit');
-
+    //USERS    
     Route::post('users/store', 'Api\UserController@store')->name('admin.users.store');
     Route::put('users/{id}', 'Api\UserController@update')->name('admin.users.update');   
     Route::delete('users/delete/{id}', 'Api\UserController@destroy')->name('admin.users.destroy');
-
 
     //PRODUCTS
     Route::post('products/store', 'Api\ProductController@store')->name('admin.products.store');   
@@ -43,14 +32,12 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('products/delete/{id}', 'Api\ProductController@destroy')->name('admin.products.destroy');
 
     //COLOR
-
     Route::post('colors/store', 'ApiColorController@store')->name('admin.colors.store'); 
     Route::put('colors/{id}', 'ApiColorController@update')->name('admin.colors.update');   
     Route::get('colors/delete/{id}', 'Api\ColorController@destroy')->name('admin.colors.destroy');
      
-    //CATEGORIES
-
-    Route::post('categories/store', 'Api\CategoryController@store')->name('admin.categories.store'); 
+    //CATEGORIES    
+    Route::post('categories/store', 'Api\CategoryController@store')->name('admin.categories.store');         
     Route::put('categories/{id}', 'Api\CategoryController@update')->name('admin.categories.update');   
     Route::get('categories/delete/{id}', 'Api\CategoryController@destroy')->name('admin.categories.destroy');
 
@@ -75,8 +62,3 @@ Route::get('colors/{id}/edit', 'Api\ColorController@edit')->name('admin.colors.e
 Route::get('categories', 'Api\CategoryController@index')->name('admin.categories.index');
 Route::get('categories/create', 'Api\CategoryController@create')->name('admin.categories.create');
 Route::get('categories/{id}/edit', 'Api\CategoryController@edit')->name('admin.categories.edit');
-
-// Route::apiresource('users','Admin\UserController');
-// Route::apiresource('products','Admin\ProductController');
-// Route::apiresource('colors','Admin\ColorController');
-// Route::apiresource('categories','Admin\CategoriesController');
