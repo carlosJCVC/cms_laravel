@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /*public function __construct()
     {
-        $this->middleware('client');
-    }
+        $this->middleware('client')->only('index');
+    }*/
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +72,7 @@ class UserController extends Controller
     {
         $user=User::find($id);
         $user->delete();
-        return response()->json('true',204);
+        return response()->json(['res'=>true],204);
     }
 
     /*public function login(Request $request){

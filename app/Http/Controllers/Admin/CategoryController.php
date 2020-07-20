@@ -67,6 +67,6 @@ class CategoryController extends Controller
     {
         $category=Category::find($id);
         $category->delete();
-        response()->json('true',204);
+        response()->json(['res'=>true],204);
     }
 }

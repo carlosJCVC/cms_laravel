@@ -66,6 +66,6 @@ class ColorController extends Controller
     {
         $color = Color::find($id);
         $color->delete();
-        return response()->json('true',204);
+        return response()->json(['res'=>true],204);
     }
 }

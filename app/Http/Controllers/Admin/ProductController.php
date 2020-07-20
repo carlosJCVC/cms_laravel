@@ -66,6 +66,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return response()->json('true',200);
+        return response()->json(['res'=>true],200);
     }
 }
