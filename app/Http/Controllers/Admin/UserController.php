@@ -22,7 +22,6 @@ class UserController extends Controller
          return User::all();
     }
 
-<<<<<<< HEAD
     /**
      * TODO
      * limpiar codigo
@@ -37,12 +36,6 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $password = bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
-=======
-    public function store(UserRequest $request)
-    {
-        
-        $password=bcrypt($request->input('password'));
->>>>>>> 1dfb7f557f51863f36709b5be5f43371522f019f
         $request->merge(['password' => $password]);
         $data = $request->all();
         $user=User::create($data);
@@ -69,13 +62,9 @@ class UserController extends Controller
         $input = $request->all();
 
         $user = User::findorfail($id);
-<<<<<<< HEAD
         // preguntamos si el password biene vacio
         // $user->removeRole($user->roles->implode('name', ' ,'));
         
-=======
-
->>>>>>> 1dfb7f557f51863f36709b5be5f43371522f019f
         $updateuser = $user->update($input);
 
         return response()->json([
