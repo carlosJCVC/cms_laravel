@@ -22,7 +22,9 @@ Route::get('/', function () {
     return response()->json('bienvenido');
 });
 //Route USERS
-Route::get('users', 'UserController@index')->middleware('client');
+Route::post('login','UserController@login');
+
+Route::get('users', 'UserController@index');//->middleware('client');
 
 
 Route::get('users/{id}','UserController@show');
