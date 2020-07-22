@@ -12,6 +12,10 @@ use App\Http\Requests\UserUpdateRequest;
 class UserController extends Controller
 {
 
+    /**
+     * TODO
+     * actualizar respuestas json
+     */
     public function index()
     {
         // $users = User::with('roles')->get();
@@ -21,6 +25,10 @@ class UserController extends Controller
          return User::all();
     }
 
+    /**
+     * TODO
+     * limpiar codigo
+     */
     // public function create()
     // {
     //     //
@@ -30,12 +38,11 @@ class UserController extends Controller
    
     public function store(UserRequest $request)
     {
-        
-        $password=bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
+        $password = bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
         $request->merge(['password' => $password]);
-        $datas = $request->all();
-        $user=User::create($datas);
-       
+        $data = $request->all();
+        $user=User::create($data);
+
         return response()->json([
             'res' => true,
             'message'=>'Registro creado correctamente'
@@ -68,6 +75,7 @@ class UserController extends Controller
         $user = User::findorfail($id);
         // preguntamos si el password biene vacio
         // $user->removeRole($user->roles->implode('name', ' ,'));
+        
         $updateuser = $user->update($input);
         // $user->save();
 
@@ -85,11 +93,11 @@ class UserController extends Controller
          $user = User::find($id);
 
         $user->delete();
+
         return response()->json([
             'res' => true,
             'message'=>'Registro eliminado correctamente'
         ],200);
-        // return redirect(route('admin.users.index'))->with([ 'message', 'record deleted successfully' ]);
     }
 
 }

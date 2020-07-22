@@ -23,6 +23,11 @@ class CategoriesRequest extends FormRequest
      */
     public function rules()
     {
+        /**
+         * TODO
+         * nombre de la clase de acuerdo a psr-2
+         * utilizar para todos switch de acuerdo al metodo
+         */
         return [
             'name' => 'required',
             'codigo' => 'required',

@@ -11,13 +11,23 @@ public $successStatus = 200;
 /** 
      * login api 
      * 
-     * @return \Illuminate\Http\Response 
+     * @return \Illuminate\Http\Response
+     * TODO
+     * definir tus estandares de codificacion consejo PSR-2 / 4 
      */ 
     public function login(){ 
+        /**
+         * TODO
+         * que hace la funcion attempt
+         */
+
+        //$passHash = bcrypt(request('passowrd'));
+        //$user = User::where('email', request('email'))->where('passowrd', $passHash)->first();
+
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['success' => $success], $this-> successStatus); 
+            $user = Auth::user();
+            $success['token'] =  $user->createToken('MyApp')->accessToken; 
+            return response()->json(['success' => $success], $this->successStatus); 
         } 
         else{ 
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -30,6 +40,10 @@ public $successStatus = 200;
      */ 
     public function register(Request $request) 
     {
+        /**
+         * TODO 
+         * validaciones en request
+         */
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
             'email' => 'required|email', 
@@ -49,7 +63,8 @@ public $successStatus = 200;
 
         return response()->json([ 'success' => $success ], $this->successStatus); 
     }
-/** 
+
+    /** 
      * details api 
      * 
      * @return \Illuminate\Http\Response 
