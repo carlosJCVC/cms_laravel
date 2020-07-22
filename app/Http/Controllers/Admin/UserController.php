@@ -18,13 +18,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::with('roles')->get();
-        // $users = DB::table('users')->get();
-        // return View('admin.Users.index', [ 'users' => $users ]);
-        // return response()->json([ 'users' => $users ], 200);
+
          return User::all();
     }
 
+<<<<<<< HEAD
     /**
      * TODO
      * limpiar codigo
@@ -39,6 +37,12 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $password = bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
+=======
+    public function store(UserRequest $request)
+    {
+        
+        $password=bcrypt($request->input('password'));
+>>>>>>> 1dfb7f557f51863f36709b5be5f43371522f019f
         $request->merge(['password' => $password]);
         $data = $request->all();
         $user=User::create($data);
@@ -54,33 +58,26 @@ class UserController extends Controller
         return $user;
     }
 
-
-    // public function edit($id)
-    // {
-    //     $user = User::find($id);
-    //     return view('admin.Users.edit', [ 'user' => $user ]);
-    // }
-
-
     public function update(UserUpdateRequest $request,$id)
     {
   
      if($request->password!=null){
             // $user->password = $request->password;
-            $password=bcrypt($request->input('password'));// RECUPERATORIA DD ELA VARIABLE PASSWORD Y ENCRITANDO
+            $password=bcrypt($request->input('password'));
             $request->merge(['password' => $password]); 
         }
         $input = $request->all();
 
         $user = User::findorfail($id);
+<<<<<<< HEAD
         // preguntamos si el password biene vacio
         // $user->removeRole($user->roles->implode('name', ' ,'));
         
-        $updateuser = $user->update($input);
-        // $user->save();
+=======
 
-        // return redirect()->route('admin.users.index')->with('status', 'Profile updated!');  
-        
+>>>>>>> 1dfb7f557f51863f36709b5be5f43371522f019f
+        $updateuser = $user->update($input);
+
         return response()->json([
             'res' => true,
             'message'=>'Registro actualizado correctamente'

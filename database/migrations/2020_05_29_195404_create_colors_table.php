@@ -14,8 +14,10 @@ class CreateColorsTable extends Migration
     public function up()
     {
         Schema::create('colors', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
+            $table->foreignId('product_id');
             $table->String('name');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

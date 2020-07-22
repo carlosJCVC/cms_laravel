@@ -14,8 +14,9 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->integer('category_id');
+            $table->id('id');
+            $table->foreignId('user_id');
+            $table->foreignId('category_id');
             $table->string('name');
             $table->string('codigo');
             $table->float('price_compra');
@@ -23,7 +24,11 @@ class CreateProductsTable extends Migration
             $table->boolean('status')->default(true);
             $table->string('stock');
             $table->string('image');
-            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            
+
         });
     }
 
