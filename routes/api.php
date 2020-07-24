@@ -21,12 +21,17 @@ Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'UserController@details');
     Route::post('logout', 'UserController@logout');
-    //Route USERS
-    Route::get('users', 'UserController@index');
-    Route::get('users/{id}','UserController@show');
-    Route::post('users','UserController@store');
-    Route::put('users/{id}','UserController@update');
-    Route::delete('users/{id}','UserController@destroy');
+    
+    /**
+     * Resources users
+     */
+    Route::group(['prefix' => 'users'], function(){
+        Route::get('', 'Admin\UserController@index');
+        Route::get('/{id}','UserController@show');
+        Route::post('','UserController@store');
+        Route::put('/{id}','UserController@update');
+        Route::delete('/{id}','UserController@destroy');
+    });
 
     Route::post('products','ProductController@store');
     Route::put('products/{id}','ProductController@update');

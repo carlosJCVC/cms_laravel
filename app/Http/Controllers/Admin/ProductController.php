@@ -26,6 +26,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * !TODO
+         * *$product->image = 'http:://127.0.0.1:8000/products/tenis.jpg'
+         */
         $newProduct = Product::create($request->all());
         return response()->json($newProduct,201);
     }
@@ -64,6 +68,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        /**
+         * borrar imagen
+         */
         $product = Product::find($id);
         $product->delete();
         return response()->json(['res'=>true],200);

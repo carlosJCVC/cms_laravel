@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 use Validator;
+
 class UserController extends Controller
 {
     public $successStatus = 200;
@@ -17,7 +18,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('products')->get();
-        return response()->json(['users'=>$users],200);
+
+        return response()->json(['users' => $users],200);
     }
 
     /**
@@ -28,7 +30,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $newUser=User::create($request->all());
+        /**
+         * TODO
+         * validar datos que se envian , crear y usar UserRequesr
+         */
+        $newUser = User::create($request->all());
         return response()->json($newUser,201);
     }
 
@@ -41,8 +47,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        /**
+         * TODO
+         * validar que exista el usuario
+         */
         $user = User::find($id);
-        return response()->json($user,200);
+        return response()->json([ 'user' => $user ],200);
     }
 
     /**
@@ -54,7 +64,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user= User::find($id);
+        /**
+         * TODO
+         * validar que exista el usuario
+         */
+        $user = User::findOrFail($id);
         $user->update($request->all());
         return response()->json($user,200);
     }
@@ -71,6 +85,13 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['res'=>true],204);
     }
+
+
+
+    /**
+     * TODO
+     * Cambiar a otro controlador
+     */
     /** 
      * login api 
      * 
@@ -80,14 +101,15 @@ class UserController extends Controller
        
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('cms_laravel')-> accessToken;
+            $success['token'] =  $user->createToken('cms_laravel')->accessToken;
            
-            return response()->json(['success' => $success], $this-> successStatus); 
+            return response()->json(['success' => $success], $this->successStatus); 
         } 
         else{ 
             return response()->json(['error'=>'Unauthorised'], 401); 
         } 
     }
+
     /** 
      * Register api 
      * 
@@ -95,6 +117,10 @@ class UserController extends Controller
      */ 
     public function register(Request $request) 
     { 
+        /**
+         * TODO
+         * Validar con request UserRequest 
+         */
         $validator = Validator::make($request->all(), [ 
             'first_name' => 'required', 
             'email' => 'required|email', 
@@ -107,30 +133,35 @@ class UserController extends Controller
         $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
-        $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+        $success['token'] =  $user->createToken('MyApp')->accessToken; 
         $success['first_name'] =  $user->name;
-        return response()->json(['success'=>$success], $this-> successStatus); 
+        return response()->json(['success'=>$success], $this->successStatus); 
     }
+
     /** 
      * details api 
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function details() 
+    public function getUserInfo() 
     { 
         $user = Auth::user(); 
+
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
+
      /** 
      * logout api 
      * 
      * @return \Illuminate\Http\Response 
      */ 
     public function logout(){
-        $user=auth()->user();
+        $user = auth()->user();
+
         $user->tokens->each(function($token,$key){
             $token->delete();
         });
+
         return response()->json([
             'res'=>true,
         ],200);
