@@ -9,11 +9,6 @@ use Validator;
 class UserController extends Controller
 {
     public $successStatus = 200;
-
-    /*public function __construct()
-    {
-        $this->middleware('client')->only('index');
-    }*/
     /**
      * Display a listing of the resource.
      *
@@ -21,8 +16,6 @@ class UserController extends Controller
      */
     public function index()
     {
-    
-        //return User::with('products')->get();
         $users = User::with('products')->get();
         return response()->json(['users'=>$users],200);
     }
@@ -78,77 +71,68 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['res'=>true],204);
     }
-
-
-
-    public function login(Request $request){
-        add('dsd');
-        $user = User::whereEmail($request-> email)->first();
-        if(!is_null($user) && Hash::check($request-> password, $user-> password))
-        { 
-            $token = $user->createToken('cms_laravel')-> accessToken;
-
-            return response()->json([
-                'res'=>true,
-                'token'=>$token,
-                'message'=>'Bienvenido al sistema'
-            ],200);
-        }else{
-            return response()->json([
-                'res'=>false,
-                'message'=>'cuenta o pawssword incorrecto'
-            ],200);
-        }
-    }
-
     /** 
      * login api 
      * 
      * @return \Illuminate\Http\Response 
-     */ /*
+     */ 
     public function login(){ 
+       
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('cms_laravel')-> accessToken; 
+            $success['token'] =  $user->createToken('cms_laravel')-> accessToken;
+           
             return response()->json(['success' => $success], $this-> successStatus); 
         } 
         else{ 
             return response()->json(['error'=>'Unauthorised'], 401); 
         } 
-    }*/
+    }
     /** 
      * Register api 
      * 
      * @return \Illuminate\Http\Response 
-     */ /*
+     */ 
     public function register(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
-            'name' => 'required', 
+            'first_name' => 'required', 
             'email' => 'required|email', 
             'password' => 'required', 
             'c_password' => 'required|same:password', 
         ]);
-if ($validator->fails()) { 
+        if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
         }
-$input = $request->all(); 
+        $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
         $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-        $success['name'] =  $user->name;
-return response()->json(['success'=>$success], $this-> successStatus); 
+        $success['first_name'] =  $user->name;
+        return response()->json(['success'=>$success], $this-> successStatus); 
     }
-   /*
+    /** 
+     * details api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function details() 
+    { 
+        $user = Auth::user(); 
+        return response()->json(['success' => $user], $this-> successStatus); 
+    } 
+     /** 
+     * logout api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
     public function logout(){
         $user=auth()->user();
         $user->tokens->each(function($token,$key){
             $token->delete();
         });
-        //$user->save();
         return response()->json([
             'res'=>true,
-            'message'=>'adios'
         ],200);
-    }*/
+    }
 }

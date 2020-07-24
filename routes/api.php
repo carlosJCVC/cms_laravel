@@ -15,42 +15,40 @@ use App\Models\User;
 |
 */
 
-/*Route::middleware('auth:api')->get('user', function (Request $request) {
-    return $request->user();
-});*/
-Route::get('/', function () {
-    return response()->json('bienvenido');
+Route::post('login', 'UserController@login');
+Route::post('register', 'UserController@register');
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('details', 'UserController@details');
+    Route::post('logout', 'UserController@logout');
+    //Route USERS
+    Route::get('users', 'UserController@index');
+    Route::get('users/{id}','UserController@show');
+    Route::post('users','UserController@store');
+    Route::put('users/{id}','UserController@update');
+    Route::delete('users/{id}','UserController@destroy');
+
+    Route::post('products','ProductController@store');
+    Route::put('products/{id}','ProductController@update');
+    Route::delete('products/{id}','ProductController@destroy');
+
+    Route::post('colors','ColorController@store');
+    Route::put('colors/{id}','ColorController@update');
+    Route::delete('colors/{id}','ColorController@destroy');
+
+    Route::post('categories','CategoryController@store');
+    Route::put('categories/{id}','CategoryController@update');
+    Route::delete('categories/{id}','CategoryController@destroy');
 });
-//Route USERS
-Route::post('login','UserController@login');
-
-Route::get('users', 'UserController@index');//->middleware('client');
-
-
-Route::get('users/{id}','UserController@show');
-Route::post('users','UserController@store');
-Route::put('users/{id}','UserController@update');
-Route::delete('users/{id}','UserController@destroy');
-
-
 
 //Route PRODUCTS
 Route::get('products','ProductController@index');
 Route::get('products/{id}','ProductController@index');
-Route::post('products','ProductController@store');
-Route::put('products/{id}','ProductController@update');
-Route::delete('products/{id}','ProductController@destroy');
 
 //Route COLORS
 Route::get('colors','ColorController@index');
 Route::get('colors/{id}','ColorController@show');
-Route::post('colors','ColorController@store');
-Route::put('colors/{id}','ColorController@update');
-Route::delete('colors/{id}','ColorController@destroy');
 
 //Route Categories
 Route::get('categories','CategoryController@index');
 Route::get('categories/{id}','CategoryController@show');
-Route::post('categories','CategoryController@store');
-Route::put('categories/{id}','CategoryController@update');
-Route::delete('categories/{id}','CategoryController@destroy');
